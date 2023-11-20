@@ -483,7 +483,7 @@
         var instructions3 = {
           type: jsPsychHtmlButtonResponse,
           stimulus: "<p style='text-align:left'>Finally, you will read the response. Now, you will be asked to give a rating of how natural the response sounds as a reaction to the first statement.</p>\
-            <p style='text-align:left'> Read the sentence, adjust the slider to reflect how natural the sentence sounds to you, and then press continue.</p>",
+            <p style='text-align:left'> Read the response, adjust the slider to reflect how natural the sentence sounds to you, and then press continue.</p>",
           choices: ["Next"],
           on_finish: function(data) {
             count++;
@@ -498,16 +498,16 @@
           slider_width: "400",
           require_movement: true,
           stimulus: "<div id='wrapper'><img id='scene' src='images/scenes.001.jpeg'><p id='context'>Two neighbors are discussing the healthcare costs in their local community.</p><div id='initiative' class='utterance'><p>The dentists in this town didn't charge the private patients a lot of money last year.</p></div><div id='response' class='utterance'><p>Yeah, not even the most greedy ones.</p></div>",
-          choices: ["Continue"]
+          choices: ["Continue"],
+          on_finish: function(data) {
+            count++;
+          }
         }
 
         var instructions4 = {
           type: jsPsychHtmlButtonResponse,
           stimulus: "<p style='text-align:left'>Great, this is what you will be doing in the study. Let's begin.</p>",
           choices: ["Continue"],
-          on_finish: function(data) {
-            count++;
-          }
         }
 
         var practice = {
