@@ -17,51 +17,52 @@
   </body>
   <script>
 
-    // this function shuffles an array
-    function shuffle(array) {
-      for (var i = array.length - 1; i > 0; i--) { 
-        // Generate random number 
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    /* general / init: */
+      // this function shuffles an array
+      function shuffle(array) {
+        for (var i = array.length - 1; i > 0; i--) { 
+          // Generate random number 
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+        return array;
       }
-      return array;
-    }
 
-    // function for sending data to store script
-    function saveData(data){
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/store');
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(data);
-      // xhr.send(JSON.stringify({filedata: data}));
-    }
-
-    /* Send data data to store script: */
-    async function saveData(data){
-        const response = fetch('/store', {
-            method:  "POST",
-            cache:   "no-cache",
-            headers: {"Content-Type": "text/csv"},
-            body:    data
-        })
-        document.getElementById("jspsych-content").innerHTML = await response.text();
-    }
-    
-    // initialise jspsych 
-    var jsPsych = initJsPsych({
-      show_progress_bar: true,
-      auto_update_progress_bar: false,
-      on_finish: function(){
-        saveData(jsPsych.data.get().csv());
-        window.location = "https://app.prolific.co/submissions/complete?cc=CN8LF6L7"
+      // function for sending data to store script
+      function saveData(data){
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/store');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(data);
+        // xhr.send(JSON.stringify({filedata: data}));
       }
-    });
 
-    /* for the progress bar: create a global count variable that increases by 1 after each trial, and use that to set the progress bar value at the end of each trial */
-    var count = 0;
-    var n_trials = 20; // 15 trials, 4 instructions, 1 demographics
+      /* Send data data to store script: */
+      async function saveData(data){
+          const response = fetch('/store', {
+              method:  "POST",
+              cache:   "no-cache",
+              headers: {"Content-Type": "text/csv"},
+              body:    data
+          })
+          document.getElementById("jspsych-content").innerHTML = await response.text();
+      }
+      
+      // initialise jspsych 
+      var jsPsych = initJsPsych({
+        show_progress_bar: true,
+        auto_update_progress_bar: false,
+        on_finish: function(){
+          saveData(jsPsych.data.get().csv());
+          window.location = "https://app.prolific.co/submissions/complete?cc=CEPWIL3L"
+        }
+      });
+
+      /* for the progress bar: create a global count variable that increases by 1 after each trial, and use that to set the progress bar value at the end of each trial */
+      var count = 0;
+      var n_trials = 20; // 15 trials, 4 instructions, 1 demographics
 
     /* define the ingredients for the target stimuli */
 
@@ -466,7 +467,7 @@
         var instructions2 = {
           type: jsPsychHtmlButtonResponse,
           stimulus: "<p style='text-align:left'>Then, you will see the first part of the conversation. It will show up as a statement in the first speech bubble.</p>\
-            <p style='text-align:left'> Again, just read this sentence, and press continue.</p>",
+            <p style='text-align:left'> As before, just read this statement, and press continue.</p>",
           choices: ["Next"],
           on_finish: function(data) {
             count++;
@@ -481,7 +482,7 @@
 
         var instructions3 = {
           type: jsPsychHtmlButtonResponse,
-          stimulus: "<p style='text-align:left'>Finally, you will read the response. Now, you will be asked to give a rating of how natural the response sound as reaction to the first statement.</p>\
+          stimulus: "<p style='text-align:left'>Finally, you will read the response. Now, you will be asked to give a rating of how natural the response sounds as a reaction to the first statement.</p>\
             <p style='text-align:left'> Read the sentence, adjust the slider to reflect how natural the sentence sounds to you, and then press continue.</p>",
           choices: ["Next"],
           on_finish: function(data) {
