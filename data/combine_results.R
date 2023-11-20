@@ -21,6 +21,6 @@ list.files(".", pattern = "results_.+\\.csv$") |>
   }) |>
   (\(.) do.call(rbind, .))() |>
   arrange(ctime) |>
-  write_tsv(file="combined.tsv")
+  write_csv(file="combined.csv")
 
-message("Wrote all results to file 'combined.tsv'.")
+message("Wrote all results to file 'combined.csv'.")

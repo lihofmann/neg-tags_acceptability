@@ -55,6 +55,7 @@
         show_progress_bar: true,
         auto_update_progress_bar: false,
         on_finish: function(){
+          jsPsych.data.get().localSave('csv','mydata.csv');
           saveData(jsPsych.data.get().csv());
           window.location = "https://app.prolific.co/submissions/complete?cc=CEPWIL3L"
         }
@@ -412,19 +413,18 @@
          stimuli.push(stim)
       }  
 
-      for (var i = 0; i < numberOfItems/3; i++) {
-         stim = makeStimulus('neither')
-         stimuli.push(stim)
-      }
+      // for (var i = 0; i < numberOfItems/3; i++) {
+      //    stim = makeStimulus('neither')
+      //    stimuli.push(stim)
+      // }
 
-      for (var i = 0; i < numberOfItems/3; i++) {
-         stim = makeStimulus('noteven')
-         stimuli.push(stim)
-      }
+      // for (var i = 0; i < numberOfItems/3; i++) {
+      //    stim = makeStimulus('noteven')
+      //    stimuli.push(stim)
+      // }
 
       console.log(stimuli)
 
-    
     /* experiment timeline -- intro, test, outro */
       // intro phase: full screen, consent, instructions, training
         var fullscreen = {
@@ -441,11 +441,11 @@
           <h4>Consent to participate:</h4>\
           <p style='text-align:left' font size=\"1\"> By clicking on the button below you agree to participate in this experiment, which is conducted by researchers at the University of Stuttgart. Participation in this study should not consume more than 5 minutes of your time, and there are no risks or discomforts expected to result from participation. You are free to withdraw from this experiment at any time without penalty. Your data will be collected and treated anonymously and confidentially. It may be used for any subsequent data analysis and / or publication of results based on this experiment, and stored in electronic format indefinitely. If you have any questions, you may contact the requester through Prolific's platform, or directly at ac140440@uni-stuttgart.de.</p>",
           choices: ["Yes, I consent to participate"],
-          on_finish: function(data) {
-                      count++;
-                      var progress = count/n_trials;
-                      jsPsych.setProgressBar(progress);
-                    }
+          on_finish: function() {
+            count++;
+            var progress = count/n_trials;
+            jsPsych.setProgressBar(progress);
+          }
         };
 
         var instructions1 = {
@@ -453,7 +453,7 @@
           stimulus: "<p style='text-align:left'>Okay, so let's start with our practice round. You will see a picture showing a situation where there is an imagined conversation between two people, and a sentence that describes the context of the conversation.</p>\
             <p style='text-align:left'> You should read the sentence and then press continue. Let's try it out.</p>",
           choices: ["Next"],
-          on_finish: function(data) {
+          on_finish: function() {
             count++;
           }
         }
@@ -469,7 +469,7 @@
           stimulus: "<p style='text-align:left'>Then, you will see the first part of the conversation. It will show up as a statement in the first speech bubble.</p>\
             <p style='text-align:left'> As before, just read this statement, and press continue.</p>",
           choices: ["Next"],
-          on_finish: function(data) {
+          on_finish: function() {
             count++;
           }
         }
@@ -485,7 +485,7 @@
           stimulus: "<p style='text-align:left'>Finally, you will read the response. Now, you will be asked to give a rating of how natural the response sounds as a reaction to the first statement.</p>\
             <p style='text-align:left'> Read the response, adjust the slider to reflect how natural the sentence sounds to you, and then press continue.</p>",
           choices: ["Next"],
-          on_finish: function(data) {
+          on_finish: function() {
             count++;
           }
         }
@@ -499,7 +499,7 @@
           require_movement: true,
           stimulus: "<div id='wrapper'><img id='scene' src='images/scenes.001.jpeg'><p id='context'>Two neighbors are discussing the healthcare costs in their local community.</p><div id='initiative' class='utterance'><p>The dentists in this town didn't charge the private patients a lot of money last year.</p></div><div id='response' class='utterance'><p>Yeah, not even the most greedy ones.</p></div>",
           choices: ["Continue"],
-          on_finish: function(data) {
+          on_finish: function() {
             count++;
           }
         }
@@ -516,7 +516,7 @@
 
         var intro = {
           timeline: [fullscreen, consent, practice],
-          on_finish: function(data) {
+          on_finish: function() {
             var progress = count/n_trials;
             jsPsych.setProgressBar(progress);
           }
@@ -549,7 +549,7 @@
           return html;
         },          
         choices: ["Continue"],
-        on_finish: function(data) {
+        on_finish: function() {
           count++;
         }
       }
@@ -577,7 +577,7 @@
         timeline: [context, initiative, response],
         timeline_variables: stimuli,
         randomize_order: true,
-        on_finish: function(data) {
+        on_finish: function() {
           var progress = count/n_trials;
           jsPsych.setProgressBar(progress);
         }
