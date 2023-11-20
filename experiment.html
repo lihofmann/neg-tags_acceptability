@@ -55,7 +55,7 @@
         show_progress_bar: true,
         auto_update_progress_bar: false,
         on_finish: function(){
-          jsPsych.data.get().localSave('csv','mydata.csv');
+          // jsPsych.data.get().localSave('csv','mydata.csv');
           saveData(jsPsych.data.get().csv());
           window.location = "https://app.prolific.co/submissions/complete?cc=CEPWIL3L"
         }
@@ -413,15 +413,15 @@
          stimuli.push(stim)
       }  
 
-      // for (var i = 0; i < numberOfItems/3; i++) {
-      //    stim = makeStimulus('neither')
-      //    stimuli.push(stim)
-      // }
+      for (var i = 0; i < numberOfItems/3; i++) {
+         stim = makeStimulus('neither')
+         stimuli.push(stim)
+      }
 
-      // for (var i = 0; i < numberOfItems/3; i++) {
-      //    stim = makeStimulus('noteven')
-      //    stimuli.push(stim)
-      // }
+      for (var i = 0; i < numberOfItems/3; i++) {
+         stim = makeStimulus('noteven')
+         stimuli.push(stim)
+      }
 
       console.log(stimuli)
 
@@ -570,7 +570,12 @@
             </div>`;
           return html;
         },          
-        choices: ["Continue"]
+        choices: ["Continue"],
+        data: { 
+          itemID: jsPsych.timelineVariable('itemID'),
+          condition: jsPsych.timelineVariable('condition'),
+          tag: jsPsych.timelineVariable('tag'),
+        }
       }
 
       var trials = {
